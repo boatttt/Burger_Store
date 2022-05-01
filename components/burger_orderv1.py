@@ -17,7 +17,6 @@ def menu():
 
 menu()
 
-
 #ask for total number of burgers to order
 num_burgers = 0
 
@@ -32,15 +31,22 @@ while True:
         print('That is not a vaild number.')
         print('Please enter between 1 and 5.')
 
-
 print(num_burgers)
 
 #choose burger from menu
 
-print ('Please choose your burger by entering the number of the burger from the menu ')
 for item in range(num_burgers):
     while num_burgers > 0:
-        burger_ordered = int(input())
+        while True:
+            try:
+                burger_ordered = int(input('Please choose your burgers by entering the number from the menu '))
+                if burger_ordered >= 1 and burger_ordered <= 12:
+                    break
+                else:
+                    print('Your burger order must be between 1 and 12.')
+            except ValueError: 
+                print('That is not a valid number.')
+                print('Please enter a number between 1 and 12.')
         burger_ordered = burger_ordered-1
         order_list.append(burger_names[burger_ordered])
         order_cost.append(burger_prices[burger_ordered])
