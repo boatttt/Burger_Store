@@ -9,10 +9,12 @@ while True:
         if confirm >= 1 and confirm <= 2:
             if confirm == 1:
                 print ('Order Confirmed')
+                print ('Your order has been sent to our kitchen and will be with you shortly.')
                 break
 
             elif confirm == 2:
                 print ('Order Cancelled')
+                print ('You can restart the order or exit.')
                 break
 
         else: 
