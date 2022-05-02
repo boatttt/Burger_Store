@@ -1,3 +1,4 @@
+import sys
 import random
 from random import randint
 
@@ -192,8 +193,63 @@ def print_order(del_pick):
     print('Total order cost')
     print(f'${total_cost:.2f}')
 
+def confirmation():
+    print ("Please confirm your order")
 
+    print ("To confirm, please enter 1.")
+    print ("To cancel, please enter 2.")
 
+    while True:
+        try:
+            confirm = int(input ('Please enter a number '))
+            if confirm >= 1 and confirm <= 2:
+                if confirm == 1:
+                    print ('Order Confirmed')
+                    print ('Your order has been sent to our kitchen and will be with you shortly.')
+                    break
+
+                elif confirm == 2:
+                    print ('Order Cancelled')
+                    print ('You can restart the order or exit.')
+                    break
+
+            else: 
+                print('The number you enter must be 1 or 2')
+        except ValueError:
+            print ('That is not a valid number')
+            print ('Please enter 1 or 2')
+
+def new_exit():
+    print ("Do you want to start another order or exit ?")
+
+    print ("To start another order enter 1.")
+    print ("To exit the bot enter 2.")
+
+    while True:
+        try:
+            confirm = int(input ('Please enter a number '))
+            if confirm >= 1 and confirm <= 2:
+                if confirm == 1:
+                    print ('New order')
+                    order_list.clear()
+                    order_cost.clear()
+                    customer_details.clear()
+                    main()
+                    break
+
+                elif confirm == 2:
+                    print ('Exit')
+                    order_list.clear()
+                    order_cost.clear()
+                    customer_details.clear()
+                    sys.exit()
+                    break
+
+            else: 
+                print('The number you enter must be 1 or 2')
+        except ValueError:
+            print ('That is not a valid number')
+            print ('Please enter 1 or 2')
 
 
 
@@ -213,5 +269,7 @@ def main():
     menu()
     order()
     print_order(del_pick)
+    confirmation()
+    new_exit()
 
 main()  
