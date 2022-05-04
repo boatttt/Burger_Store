@@ -12,7 +12,7 @@ def order_type(low, high, question):
 
 
 LOW = 1 
-HIGH = 2 
+HIGH = 12
 
 question = (f'Enter a number between {LOW} and {HIGH} ')
 

@@ -8,6 +8,28 @@ names = ["Naomi", "Mio", "Rosmarie", "Kyle", "Dominicus", "Reigo", "Sheryl", "Ly
 customer_details = {}
 order_list = []
 order_cost = []
+
+# validates inputs to make sure that they aren't blank
+def not_blank(question):
+    valid = False
+    while not valid:
+        response = input(question)
+        if response != '':
+            return response
+        else: 
+            print('This cannot be left blank')
+# validates inputs to check if theya re an integer
+def val_int(low, high, question):
+    while True:
+        try:
+            num = int(input(question))
+            if num >= low and num <= high:
+                return num
+            else: 
+                print (f'Please enter a number between {low} and {high} ')
+        except ValueError:
+            print ('That is not a vaild number')
+            print (f'Please enter a number between {low} and {high} ')
 # welcome message
 def welcome():
 
@@ -29,51 +51,35 @@ def welcome():
 # pickup or delivery menu
 def pickupmenu():
     del_pick = ''
-    print ("Do you want your order delivered or are you picking it up?")
+    LOW = 1 
+    HIGH = 2
 
+    question = (f'Enter a number between {LOW} and {HIGH} ')
+    print ("Do you want your order delivered or are you picking it up?")
     print ("For pickup, enter 1.")
     print ("For delivery, enter 2.")
 
-    while True:
-        try:
-            delivery = int(input ('Please enter a number '))
-            if delivery >= 1 and delivery <= 2:
-                if delivery == 1:
-                    print ('Pickup')
-                    del_pick = 'pickup'
-                    pickup()            
-                    break
+    delivery = val_int(LOW, HIGH, question)
+    
+    if delivery == 1:
+        print ('Pickup')
+        del_pick = 'pickup'
+        pickup()          
 
-                elif delivery == 2:
-                    print ('Delivery')
-                    order_list.append('Delivery Charge')
-                    order_cost.append(9)
-                    del_pick = 'delivery'
-                    deliver()
-                    break
+    else:
+        print ('Delivery')
+        order_list.append('Delivery Charge')
+        order_cost.append(9)
+        del_pick = 'delivery'
+        deliver()
 
-            else: 
-                print('The number you enter must be 1 or 2')
-        except ValueError:
-            print ('That is not a valid number')
-            print ('Please enter 1 or 2')
     return del_pick
 
 #pickup function
 
 def pickup():
-   
 
-    def not_blank(question):
-        valid = False
-        while not valid:
-            response = input(question)
-            if response != '':
-                return response
-            else: 
-                print('This cannot be left blank')
-
-    #Basic Instructions
+#Basic Instructions
     question = ('Please enter your name ')
     customer_details['name'] = not_blank(question )
     print(customer_details['name'])
@@ -86,17 +92,8 @@ def pickup():
 #delivery function
 def deliver():
     
-
-    def not_blank(question):
-        valid = False
-        while not valid:
-            response = input(question)
-            if response != '':
-                return response
-            else: 
-                print('This cannot be left blank')
-
 #Basic Instructions
+
     question = ('Please enter your name ')
     customer_details['name'] = not_blank(question )
     print(customer_details['name'])
@@ -136,39 +133,24 @@ def menu():
 def order():
 
     num_burgers = 0
+    LOW = 1 
+    HIGH = 5
+    MENU_LOW = 1
+    MENU_HIGH = 12
 
-    while True:
-        try:
-            num_burgers = int(input('How many burgers would you like to order? '))
-            if num_burgers >=1 and num_burgers <=5: 
-                break
-            else:
-                print('Your order must contain between 1 and 5 Burgers')
-        except ValueError:
-            print('That is not a vaild number.')
-            print('Please enter between 1 and 5.')
-
-    print(num_burgers)
-
-    #choose burger from menu
-
+    question = (f'Enter a number between {LOW} and {HIGH} ')
+    print('How many burgers do you want to order?')
+    num_burgers =val_int(LOW, HIGH, question)
     for item in range(num_burgers):
-        while num_burgers > 0:
-            while True:
-                try:
-                    burger_ordered = int(input('Please choose your burgers by entering the number from the menu '))
-                    if burger_ordered >= 1 and burger_ordered <= 12:
-                        break
-                    else:
-                        print('Your burger order must be between 1 and 12.')
-                except ValueError: 
-                    print('That is not a valid number.')
-                    print('Please enter a number between 1 and 12.')
-            burger_ordered = burger_ordered-1
-            order_list.append(burger_names[burger_ordered])
-            order_cost.append(burger_prices[burger_ordered])
-            print('{} ${:.2f}' .format(burger_names[burger_ordered],burger_prices[burger_ordered]))
-            num_burgers = num_burgers-1
+        print('Please choose your burgers by entering the number from the menu.')
+        question = (f'Please enter a number between {MENU_LOW} and {MENU_HIGH} ')
+        burger_ordered = val_int(MENU_LOW, MENU_HIGH, question)
+
+        burger_ordered = burger_ordered-1
+        order_list.append(burger_names[burger_ordered])
+        order_cost.append(burger_prices[burger_ordered])
+        print('{} ${:.2f}' .format(burger_names[burger_ordered],burger_prices[burger_ordered]))
+        num_burgers = num_burgers-1
 
 #order printing function
 def print_order(del_pick):
